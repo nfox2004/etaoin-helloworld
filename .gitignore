@@ -1,8 +1,9 @@
 /target
- .cpcache/
 
 .idea/
 *.iml
 
 # macOS
 **/.DS_Store
+
+/.cpcache
