@@ -33,7 +33,7 @@ jobs:
     - name: install clojure tools
       uses: DeLaGuardo/setup-clojure@5.0
       with:
-        bb: 0.7.8
+        bb: 0.8.2
 
 #    - uses: DeLaGuardo/setup-clj-kondo@master
 #      with:
