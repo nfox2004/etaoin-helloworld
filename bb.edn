@@ -25,7 +25,7 @@
                   ;; repeat :test paths from deps.edn
                   :extra-paths ["test" "env/test/resources"]
                   :extra-deps  {;; inherit base deps from deps.edn
-                                etaoin/etaoin ({:local/root "."})
+                                etaoin/etaoin-helloworld ({:local/root "."})
                                 ;; repeat necessary :test deps from deps.edn
                                 io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
                   :task (do
