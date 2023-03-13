@@ -8,20 +8,24 @@
          cheshire/cheshire             {:mvn/version "5.11.0"}
          org.clojure/tools.cli         {:mvn/version "1.0.214"}
          org.clojure/tools.logging     {:mvn/version "1.2.4"}
-         etaoin/etaoin {:mvn/version "1.0.40"}}
+         etaoin/etaoin                 {:mvn/version "1.0.40"}
+
+
+         org.babashka/cli              {:mvn/version "0.5.40"}
+         }
  :aliases
  {
-  :test   {:extra-paths      ["test" "env/test/resources"]
-           :extra-deps       {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}
-                              org.babashka/cli                     {:mvn/version "0.5.40"}
-                              ch.qos.logback/logback-classic       {:mvn/version "1.4.5"}
-                              ;; for http-client which uses apache http client 4.x which uses commons logging
-                              org.slf4j/jcl-over-slf4j             {:mvn/version "2.0.5"}}
-           :exec-fn          cognitect.test-runner.api/test
+  :test   {:extra-paths ["test" "env/test/resources"]
+           :extra-deps  {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}
+                         org.babashka/cli                     {:mvn/version "0.5.40"}
+                         ch.qos.logback/logback-classic       {:mvn/version "1.4.5"}
+                         ;; for http-client which uses apache http client 4.x which uses commons logging
+                         org.slf4j/jcl-over-slf4j             {:mvn/version "2.0.5"}}
+           :exec-fn     cognitect.test-runner.api/test
            ;:org.babashka/cli {:coerce {:nses     [:symbol]
            ;                            :patterns [:string]
            ;                            :vars     [:symbol]}}
-           :main-opts        ["-m" "babashka.cli.exec"]}
+           :main-opts   ["-m" "babashka.cli.exec"]}
   :script {:extra-paths ["script"]}
 
 
