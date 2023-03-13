@@ -1,4 +1,4 @@
-name: Build Kingsport
+name: Build Etaoin_Helloworld
 
 on:
   pull_request:
