@@ -1,11 +1,12 @@
 (ns test
   "Prep and launch for bb and jvm tests"
-  (:require [babashka.cli :as cli]
-            [babashka.fs :as fs]
-            [babashka.process :as process]
-            [clojure.string :as string]
-            [helper.shell :as shell]
-            [lread.status-line :as status]))
+  (:require
+   ;[babashka.cli :as cli]
+   [babashka.fs :as fs]
+   [babashka.process :as process]
+   [clojure.string :as string]
+   [helper.shell :as shell]
+   [lread.status-line :as status]))
 
 (defn- launch-xvfb []
   (if (fs/which "Xvfb")
@@ -76,9 +77,9 @@
 (defn- usage-help []
   (status/line :head "Usage help")
   (status/line :detail "Run tests")
-  (status/line :detail (cli/format-opts {:spec cli-spec :order [:browsers :suites :help]}))
+  ;(status/line :detail (cli/format-opts {:spec cli-spec :order [:browsers :suites :help]}))
   (status/line :detail "\nCognitect test-runner args are also supported (if not specifying --suites):")
-  (status/line :detail (cli/format-opts {:spec cli-spec :order [:nses :patterns :vars]}))
+  ;(status/line :detail (cli/format-opts {:spec cli-spec :order [:nses :patterns :vars]}))
 
   (status/line :detail "\nNotes
 - ide tests default to (and support) firefox and chrome only (other browsers will be ignored).
@@ -91,18 +92,19 @@
   (usage-help)
   (System/exit 1))
 
-(defn- parse-opts [args]
-  (let [opts (cli/parse-opts args {:spec     cli-spec
-                                   :restrict true
-                                   :error-fn (fn [{:keys [msg]}]
-                                               (usage-fail msg))})]
-    (when-let [extra-gunk (-> (meta opts) :org.babashka/cli)]
-      (usage-fail (str "unrecognized on the command line: " (pr-str extra-gunk))))
-    (when (and (seq (:suites opts))
-               (seq (select-keys opts [:nses :patterns :vars])))
-      (usage-fail "--suites and cognitect test-runner opts are mutually exclusive"))
-
-    opts))
+;(defn- parse-opts [args]
+;  (let [opts (cli/parse-opts args {:spec     cli-spec
+;                                   :restrict true
+;                                   :error-fn (fn [{:keys [msg]}]
+;                                               (usage-fail msg))})]
+;    (println ">>>> opts " opts)
+;    (when-let [extra-gunk (-> (meta opts) :org.babashka/cli)]
+;      (usage-fail (str "unrecognized on the command line: " (pr-str extra-gunk))))
+;    (when (and (seq (:suites opts))
+;               (seq (select-keys opts [:nses :patterns :vars])))
+;      (usage-fail "--suites and cognitect test-runner opts are mutually exclusive"))
+;
+;    opts))
 
 (defn- opts->args [opts]
   (->> (select-keys opts [:nses :patterns :vars])
@@ -111,7 +113,7 @@
                [])))
 
 (defn- prep [args]
-  (let [opts (parse-opts args)]
+  (let [opts {:browsers ["chrome"], :suites [" api"]} #_(parse-opts args)]
     (if (:help opts)
       (usage-help)
       (let [browsers         (:browsers opts)
