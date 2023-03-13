@@ -1,0 +1,53 @@
+name: Build Kingsport
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+
+    - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT" # TODO for troubleshooting
+
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 17.0.1
+
+    - name: setup jdk
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: install clojure tools
+      uses: DeLaGuardo/setup-clojure@5.0
+      with:
+        bb: 0.7.8
+
+#    - uses: DeLaGuardo/setup-clj-kondo@master
+#      with:
+#        version: '2022.08.03'
+
+    - name: install clj
+      run: |
+        wget -nc https://download.clojure.org/install/linux-install-1.11.1.1113.sh
+        chmod +x linux-install-1.11.1.1113.sh
+        sudo ./linux-install-1.11.1.1113.sh
+
+    - run: clojure -X:deps tree
+
+    - name: test the app
+      run: bb test:bb  -b chrome -s api
+
+    - run: echo "🍏 This job's status is ${{ job.status }}."
