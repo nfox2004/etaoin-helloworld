@@ -56,7 +56,6 @@ jobs:
        sudo apt-get install --allow-downgrades -y /tmp/chrome.deb
        rm /tmp/chrome.deb
 
-    - run: chrome --version
 
     - name: install chromedirver
       uses: nanasess/setup-chromedriver@v1
