@@ -17,9 +17,6 @@
   :leave    (let [{:keys [name]} (current-task)]
               (when-not (string/starts-with? name "-")
                 (status/line :detail "\nTASK %s done." name)))
-
-  test:jvm  {:doc  "Runs tests under JVM Clojure [--help]"
-             :task test/test-jvm}
   -test:bb  {:doc         "bb test runner, invoked within script/test.clj"
              :requires    ([taoensso.timbre :as timbre])
              ;; repeat :test paths from deps.edn
@@ -31,13 +28,11 @@
              :task        (do
                             ;; timbre default logging level is debug, which generates a lot of http logging noise
                             (timbre/set-level! :info)
-                            (babashka.task/exec 'cognitect.test-runner.api/test))
+                            (exec 'cognitect.test-runner.api/test))
              ;:org.babashka/cli {:coerce {:nses [:symbol]
              ;                            :patterns [:string]
              ;                            :vars [:symbol]}}
 
              }
   test:bb   {:doc  "Runs tests under Babashka [--help]"
-             :task test/test-bb}
-  drivers   {:doc  "[list|kill] any running WebDrivers"
-             :task drivers/-main}}}
+             :task test/test-bb}}}
