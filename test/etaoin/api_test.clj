@@ -37,7 +37,7 @@
   [:firefox :chrome :safari])
 
 (def default-opts
-  {:chrome  {:args ["--no-sandbox"]}
+  {:chrome  {:args ["--no-sandbox", "--headless", "--disable-dev-shm-usage"]}
    :firefox {}
    :safari  {}
    :edge    {:args ["--headless"]}})
