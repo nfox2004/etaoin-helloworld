@@ -50,6 +50,19 @@ jobs:
 
     - run: clojure -X:deps tree
 
+    - name: install chrome
+      run : |
+       wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" --progress=dot:giga -O /tmp/chrome.deb
+       sudo apt-get install --allow-downgrades -y /tmp/chrome.deb
+       rm /tmp/chrome.deb
+
+    - run: chrome --version
+
+    - name: install chromedirver
+      uses: nanasess/setup-chromedriver@v1
+
+    - run: chromedriver --version
+
     - name: test the app
       run: bb test:bb  -b chrome -s api
 
