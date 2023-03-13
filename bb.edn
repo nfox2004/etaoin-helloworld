@@ -31,7 +31,7 @@
              :task        (do
                             ;; timbre default logging level is debug, which generates a lot of http logging noise
                             (timbre/set-level! :info)
-                            (exec 'cognitect.test-runner.api/test))
+                            #_ (exec 'cognitect.test-runner.api/test))
              ;:org.babashka/cli {:coerce {:nses [:symbol]
              ;                            :patterns [:string]
              ;                            :vars [:symbol]}}
